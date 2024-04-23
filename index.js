@@ -14,9 +14,6 @@ import bookingRoute from './routes/Booking.js'
 
 dotenv.config()
 
-const app = express();
-const port = process.env.PORT||8000
-
 const corsOptions ={
     origin: '*',
     optionsSuccessStatus: 200,
@@ -24,6 +21,14 @@ const corsOptions ={
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin'],
     preflightContinue: false,
 }
+const app = express();
+const port = process.env.PORT||8000
+
+app.use(cors(corsOptions))
+app.use(express.json());
+app.use(cookieParser());
+
+
 
 app.get('/',(req,res)=>{
     res.send("Api is working ")
@@ -52,9 +57,7 @@ console. log('MongoDB database is connection failed')
 
 // Writing required middlewares  
 
-app.use(express.json());
-app.use(cookieParser());
-app.use(cors(corsOptions))
+
 app.use('/api/v1/auth',authRoute)
 app.use('/api/v1/user',userRoute)
 app.use('/api/v1/doctor',doctorRouter)
