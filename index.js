@@ -19,7 +19,10 @@ const port = process.env.PORT||8000
 
 const corsOptions ={
     origin: '*',
-    credentials: true,
+    optionsSuccessStatus: 200,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin'],
+    preflightContinue: false,
 }
 
 app.get('/',(req,res)=>{
