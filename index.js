@@ -3,6 +3,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import path from "path";
 
 import authRoute from "./routes/auth.js";
 import userRoute from "./routes/user.js";
@@ -28,6 +29,8 @@ app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
+const __dirname = path.resolve();
+
 app.get("/", (req, res) => {
   res.send("Api is working ");
 });
@@ -51,6 +54,12 @@ app.use("/api/v1/doctor", doctorRouter);
 app.use("/api/v1/review", reviewRoute);
 app.use("/api/v1/bookings", bookingRoute);
 app.use("/api/v1/contact", contactRoute);
+
+app.use(express.static(path.join(__dirname, "/client/dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+});
 
 app.listen(port, () => {
   connectDB();
