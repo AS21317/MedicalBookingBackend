@@ -36,7 +36,7 @@ app.get("/", (req, res) => {
 // mongoose.set('strictQuery', false)
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGODB_URL, {});
+    mongoose.connect(process.env.MONGODB_URL);
     console.log("MongoDB database is connected");
   } catch (err) {
     console.log("MongoDB database is connection failed");
