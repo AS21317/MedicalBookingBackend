@@ -1,7 +1,7 @@
 import express from "express"
 import cookieParser from "cookie-parser"
 import cors from "cors"
-import  mongoose  from "mongoose"
+import  mongoose, { connect }  from "mongoose"
 import dotenv from 'dotenv'
 
 import authRoute from './routes/auth.js'
@@ -66,9 +66,15 @@ app.use('/api/v1/bookings',bookingRoute)
 app.use('/api/v1/contact',contactRoute)
 
 
+let isDevelopment = (process.env.NODE_ENV !== "production")
 
+if(isDevelopment){
+    app.listen(port,()=>{
+        connectDB()
+        console.log(`Server is running  on port ${port}`); 
+    })
+}else{
+    await connectDB();
+}
 
-app.listen(port,()=>{
-    connectDB()
-    console.log(`Server is running  on port ${port}`); 
-})
+export default app;

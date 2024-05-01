@@ -6,7 +6,7 @@ import bcrypt from 'bcryptjs'
 
 
 // Function to generate token for login user 
-
+ 
 const generateToken = (user)=>{
     // here we are integrating user role and Id in Token 
     return jwt.sign({id:user._id, role:user.role }, process.env.JWT_SECRET,{
